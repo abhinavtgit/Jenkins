@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Docker Build') {
             steps {
-                sh 'docker build -f containerfile -t chetanguptahcl/frontend:jen .'
+                sh 'docker build -f containerfile -t  abhinavtdocker/frontend:jen .'
             }
         }
         stage('Docker Push') {
@@ -12,14 +12,14 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'c2d73471-270d-44d9-b407-a4f79dd9765d', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login docker.io -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh 'docker push chetanguptahcl/frontend:jen'
+                    sh 'docker push  abhinavtdocker/frontend:jen'
                 }
             }
         }
         stage('Docker Run') {
             agent any
             steps {
-                sh 'docker run -d -p 12000:12000 chetanguptahcl/frontend:jen'
+                sh 'docker run -d -p 12000:12000 abhinavtdocker/frontend:jen'
                 }
             }
         }
